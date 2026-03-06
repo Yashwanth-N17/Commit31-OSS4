@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
     return (
         <footer style={{ background: "linear-gradient(135deg, #0B1F3B 38%, #1E3A8A 60%)" }} className="mt-auto w-full">
@@ -24,19 +26,19 @@ export default function Footer() {
                     <p className="font-bold text-xs tracking-widest mb-4" style={{ color: "#00D4FF", letterSpacing: "2px" }}>QUICK LINKS</p>
                     <ul style={{ display: "flex", flexDirection: "column", gap: "12px", padding: 0, margin: 0, listStyle: "none" }}>
                         {[
-                            { label: "Home", href: "#" },
-                            { label: "About", href: "#" },
-                            { label: "Blogs", href: "#" },
-                            { label: "Login", href: "#" },
-                            { label: "Register", href: "#" },
-                        ].map(({ label, href }) => (
+                            { label: "Home", to: "/" },
+                            { label: "About", to: "/about" },
+                            { label: "Blogs", to: "/blogs" },
+                            { label: "Login", to: "/login" },
+                            { label: "Register", to: "/register" },
+                        ].map(({ label, to }) => (
                             <li key={label}>
-                                <a href={href}
+                                <Link to={to}
                                     style={{ color: "#E2E8F0", fontSize: "14px", textDecoration: "none", display: "block" }}
                                     onMouseEnter={e => e.currentTarget.style.color = "#00D4FF"}
                                     onMouseLeave={e => e.currentTarget.style.color = "#E2E8F0"}>
                                     {label}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>
