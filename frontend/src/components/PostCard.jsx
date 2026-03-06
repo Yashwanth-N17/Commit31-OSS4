@@ -1,6 +1,8 @@
-function PostCard({ title, excerpt, author, timestamp, likes = 0, comments = 0 }) {
+import { Link } from 'react-router-dom';
+
+function PostCard({ id, title, excerpt, author, timestamp, likes = 0, comments = 0 }) {
   return (
-    <div className="bg-secondary rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-gray-700">
+    <Link to={`/blog/${id}`} className="bg-secondary rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-gray-700 cursor-pointer block">
       <div className="p-6">
         <h3 className="text-xl font-semibold text-[#E2E8F0] mb-2">{title}</h3>
         <p className="text-[#E2E8F0] mb-4 line-clamp-3 opacity-80">{excerpt}</p>
@@ -19,6 +21,8 @@ function PostCard({ title, excerpt, author, timestamp, likes = 0, comments = 0 }
         </div>
         
         <div className="flex items-center space-x-4 mt-4 pt-4 border-t border-gray-600">
+          {/* Display only — like functionality handled in BlogDetails */}
+          {/* TODO: wire to POST /api/blogs/:id/like from feed when backend is ready */}
           <button className="flex items-center space-x-1 text-muted hover:text-primary transition-colors">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -37,6 +41,8 @@ function PostCard({ title, excerpt, author, timestamp, likes = 0, comments = 0 }
             <span>{likes}</span>
           </button>
           
+          {/* Display only — commenting handled in BlogDetails */}
+          {/* TODO: wire to navigate to comments section when backend is ready */}
           <button className="flex items-center space-x-1 text-muted hover:text-primary transition-colors">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -56,7 +62,7 @@ function PostCard({ title, excerpt, author, timestamp, likes = 0, comments = 0 }
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-// TODO: fetch blog data from API using `id` when backend is ready
+// TODO: Remove hardcoded data when backend is ready
 const BLOG_DATA = {
   title: "Building Your First Web Application: A Beginner's Guide",
   author: {
@@ -112,11 +112,29 @@ function ContentBlock({ block, index }) {
 }
 
 export default function BlogDetails() {
-  const { id } = useParams(); // will drive API fetch when backend is connected
+  const { id } = useParams();
 
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(42);
   const [commentText, setCommentText] = useState('');
+  // const [blogData, setBlogData] = useState(null);
+  // const [loading, setLoading] = useState(true);
+
+  // TODO: Uncomment and implement when backend is ready
+  // useEffect(() => {
+  //   async function fetchBlogPost() {
+  //     try {
+  //       const response = await fetch(`/api/blogs/${id}`);
+  //       const data = await response.json();
+  //       setBlogData(data);
+  //     } catch (error) {
+  //       console.error('Failed to fetch blog post:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   fetchBlogPost();
+  // }, [id]);
 
   const handleLikeToggle = () => {
     setIsLiked((prev) => !prev);
