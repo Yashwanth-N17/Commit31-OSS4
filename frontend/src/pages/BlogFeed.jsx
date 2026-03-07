@@ -69,6 +69,7 @@ function BlogFeed() {
           {blogPosts.map((post) => (
             <PostCard
               key={post.id}
+              id={post.id}
               title={post.title}
               excerpt={post.excerpt}
               author={post.author}

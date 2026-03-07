@@ -1,11 +1,32 @@
-import "./App.css"
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import BlogFeed from "./pages/BlogFeed";
+import Register from "./pages/register";
+import BlogDetails from "./pages/BlogDetails";
+import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 
 function App() {
   return (
-    <div style={{ width: "100%", margin: 0, padding: 0 }}>
-      <Login />
-    </div>
+    <BrowserRouter>
+      <div className="min-h-screen flex flex-col bg-[#0F172A]">
+        <Navbar />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blogs" element={<BlogFeed />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/blog/:id" element={<BlogDetails />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 
