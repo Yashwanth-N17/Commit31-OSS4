@@ -1,11 +1,12 @@
+
 import { createContext, useState, useContext } from 'react'
 
 const AuthContext = createContext(null)
 
-function AuthProvider({ children }) {
+export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => {
-    const stored = localStorage.getItem('token') ?? null
-    return stored !== 'null' ? stored : null
+    const stored = localStorage.getItem('token')
+    return stored && stored !== 'null' ? stored : null
   })
 
   const [user, setUser] = useState(() => {
@@ -13,7 +14,9 @@ function AuthProvider({ children }) {
       const parsed = JSON.parse(localStorage.getItem('user'))
       return parsed ?? null
     } catch {
+      // If user is corrupt, clear BOTH user and token for clean state
       localStorage.removeItem('user')
+      localStorage.removeItem('token')
       return null
     }
   })
@@ -40,6 +43,12 @@ function AuthProvider({ children }) {
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = () => useContext(AuthContext)
+export function useAuth() {
+  const context = useContext(AuthContext)
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider')
+  }
+  return context
+}
 
-export { AuthContext, AuthProvider }
+export { AuthContext }

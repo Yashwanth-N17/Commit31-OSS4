@@ -1,8 +1,15 @@
 import axios from 'axios'
 
-// TODO: update VITE_API_URL in .env when backend is deployed
+const apiBaseUrl =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.DEV ? 'http://localhost:5000' : undefined)
+
+if (!apiBaseUrl) {
+  throw new Error('Missing VITE_API_URL environment variable')
+}
+
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:5000',
+  baseURL: apiBaseUrl,
 })
 
 export async function loginUser(email, password) {

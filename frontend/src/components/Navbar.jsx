@@ -3,15 +3,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const loggedOutLinks = [
-  { label: "Home",     to: "/" },
-  { label: "Login",    to: "/login" },
-  { label: "Register", to: "/register" },
+  { label: "Home",      to: "/" },
+  { label: "Login",     to: "/login" },
+  { label: "Register",  to: "/register" },
 ];
 
 const loggedInLinks = [
-  { label: "Home",     to: "/" },
+  { label: "Home",      to: "/" },
   { label: "Blog Feed", to: "/blogs" },
-  { label: "Profile",  to: "/profile" },
+  { label: "Profile",   to: "/profile" },
 ];
 
 function Navbar() {
@@ -19,6 +19,12 @@ function Navbar() {
   const { token, logout } = useAuth();
   const navigate = useNavigate();
   const navLinks = token ? loggedInLinks : loggedOutLinks;
+
+  function handleLogout({ closeMenu = false } = {}) {
+    logout();
+    if (closeMenu) setMenuOpen(false);
+    navigate("/login");
+  }
 
   return (
     <nav className="bg-navbar-Primary border-b border-navbar-Secondary sticky top-0 z-50 shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
@@ -61,7 +67,7 @@ function Navbar() {
           ))}
           {token && (
             <button
-              onClick={(e) => { e.stopPropagation(); logout(); navigate('/login'); }}
+              onClick={() => handleLogout()}
               className="whitespace-nowrap text-[0.9rem] font-medium px-5 py-[0.4rem] text-navbar-Muted hover:text-navbar-TextPrimary transition-colors duration-200 bg-transparent border-none cursor-pointer"
             >
               Logout
@@ -105,8 +111,7 @@ function Navbar() {
           ))}
           {token && (
             <button
-              
-              onClick={(e) => { e.stopPropagation(); logout(); setMenuOpen(false); navigate('/login'); }}
+              onClick={() => handleLogout({ closeMenu: true })}
               className="whitespace-nowrap text-[0.9rem] font-medium px-5 py-[0.4rem] text-navbar-Muted hover:text-navbar-TextPrimary transition-colors duration-200 bg-transparent border-none cursor-pointer"
             >
               Logout
