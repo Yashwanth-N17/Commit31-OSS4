@@ -105,7 +105,8 @@ function Navbar() {
           ))}
           {token && (
             <button
-              onClick={(e) => { e.stopPropagation(); logout(); navigate('/login'); }}
+              
+              onClick={(e) => { e.stopPropagation(); logout(); setMenuOpen(false); navigate('/login'); }}
               className="whitespace-nowrap text-[0.9rem] font-medium px-5 py-[0.4rem] text-navbar-Muted hover:text-navbar-TextPrimary transition-colors duration-200 bg-transparent border-none cursor-pointer"
             >
               Logout
